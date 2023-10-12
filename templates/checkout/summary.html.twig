@@ -1,0 +1,76 @@
+{% extends 'base/layout/base.html.twig' %}
+
+{% block title %}Summary page!{% endblock %}
+
+{% block main %}
+    <div class="relative lg:min-h-full">
+        <div class="h-80 overflow-hidden lg:absolute lg:h-full lg:w-1/2 lg:pr-4 xl:pr-12">
+            <img src="https://tailwindui.com/img/ecommerce-images/confirmation-page-06-hero.jpg" alt="TODO" class="h-full w-full object-cover object-center">
+        </div>
+
+        <div>
+            <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-32 xl:gap-x-24">
+                <div class="lg:col-start-2">
+                    <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Order summary</p>
+                    <p class="mt-2 text-base text-gray-500">This is your order summary page, please confirm if your data is correct before placing your order!</p>
+
+                    <br><hr>
+                    <section  class="mt-16 lg:mt-0 py-6">
+                        <h2 class="text-lg font-medium text-gray-900">Shipping Information</h2>
+                        <div class="mt-6">
+                            <dl class="grid grid-cols-2 gap-x-6 text-sm">
+                                <div>
+                                    <dt class="font-medium text-gray-900">Delivery address</dt>
+                                    <dd class="mt-3 text-gray-500">
+                                        <span class="block">{{ order.deliveryAddress.name }}</span>
+                                        <span class="block">{{ order.deliveryAddress.street }}</span>
+                                        <span class="block">{{ order.deliveryAddress.postalCode }}, {{ order.deliveryAddress.city }}, {{ order.deliveryAddress.city.country }}</span>
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt class="font-medium text-gray-900">Shipping updates</dt>
+                                    <dd class="mt-3 space-y-3 text-gray-500">
+                                        <p>{{ order.deliveryAddress.email }}</p>
+                                        <p>{{ order.deliveryAddress.telephoneNumber }}</p>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </section>
+
+                    <h2 id="summary-heading" class="mt-16 text-lg font-medium text-gray-900">Order items</h2>
+                    {% include 'checkout/partials/items.html.twig' %}
+
+                    <br><hr>
+
+                    <section aria-labelledby="summary-heading" class="mt-16 lg:mt-0 py-6">
+                        {% include 'checkout/partials/summary.html.twig' %}
+                    </section>
+
+                    <div class="mt-16 border-t border-gray-200 py-6 text-right">
+                        <a href="{{ path('app.product.list') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                            Forgot something? add more items
+                            <span aria-hidden="true"> &rarr;</span>
+                        </a>
+                    </div>
+
+                    <div class="mt-6">
+                        <a data-id="place-order" href="{{ path('app.checkout.confirmation') }}" class="block text-center w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Place order</a>
+                    </div>
+
+                    {% if workflow_can(order, 'to_delivery_address') %}
+                        <div class="mt-6">
+                            <div class="mt-16 border-t border-gray-200 py-6">
+                                <a href="{{ path('app.checkout.address') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                    <span aria-hidden="true"> &larr;</span>
+                                    Previous step
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

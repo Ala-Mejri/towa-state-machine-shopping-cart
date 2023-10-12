@@ -1,0 +1,28 @@
+framework:
+    workflows:
+        checkout_process:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - App\Module\Order\Domain\Entity\Order
+            initial_marking: shopping_cart
+            places:
+                - shopping_cart
+                - delivery_address
+                - summary_for_purchase
+                - ordered
+            transitions:
+                to_shopping_cart:
+                    from: [shopping_cart, delivery_address, summary_for_purchase]
+                    to: shopping_cart
+                to_delivery_address:
+                    from: [shopping_cart, delivery_address, summary_for_purchase]
+                    to: delivery_address
+                to_summary_for_purchase:
+                    from: [delivery_address, summary_for_purchase]
+                    to: summary_for_purchase
+                to_ordered:
+                    from: [summary_for_purchase, ordered]
+                    to: ordered

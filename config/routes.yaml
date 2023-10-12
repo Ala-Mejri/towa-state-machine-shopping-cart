@@ -1,0 +1,35 @@
+home:
+    resource:
+        path: ../src/Module/Home/Action/
+        namespace: App\Module\Home\Action
+    type: attribute
+
+authentication:
+    resource:
+        path: ../src/Module/Authentication/Action/
+        namespace: App\Module\Authentication\Action
+    type: attribute
+
+user:
+    resource:
+        path: ../src/Module/User/Action/
+        namespace: App\Module\User\Action
+    type: attribute
+
+product:
+    resource:
+        path: ../src/Module/Product/Action/
+        namespace: App\Module\Product\Action
+    type: attribute
+
+checkoutProcess:
+    resource:
+        path: ../src/Module/CheckoutProcess/Action/
+        namespace: App\Module\CheckoutProcess\Action
+    type: attribute
+
+order:
+    resource:
+        path: ../src/Module/Order/Action/
+        namespace: App\Module\Order\Action
+    type: attribute

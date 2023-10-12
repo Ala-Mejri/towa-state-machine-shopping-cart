@@ -1,0 +1,113 @@
+{% extends 'base/layout/base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block main %}
+    <div class="bg-white" id="checkout-section">
+        <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
+            <div class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+                <section aria-labelledby="cart-items-heading" class="lg:col-span-7">
+                    {% if order.items.count > 0 %}
+                        {% include 'checkout/partials/items.html.twig' %}
+                    {% else %}
+                        <div class="mb-40">
+                            Your shopping cart is empty. Please visit the <a href="{{ path('app.product.list') }}" class="underline text-indigo-600">product list</a>.
+                        </div>
+                    {% endif %}
+                </section>
+
+                {% if order.items.count > 0 %}
+                    <section aria-labelledby="summary-heading" class="bg-gray-50 mt-16 lg:mt-0 lg:col-span-5 rounded-lg px-4 py-6 sm:p-6 lg:p-8">
+                        {% include 'checkout/partials/summary.html.twig' %}
+
+                        <div class="mt-6" >
+                            <a data-id="checkout-address" href="{{ path('app.checkout.address') }}" class="block text-center w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Checkout</a>
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {#    <div class="container mt-4">#}
+    {#        <h1>Your Cart</h1>#}
+    {#        {% if order.items.count > 0 %}#}
+    {#            <div class="row mt-4">#}
+    {#                <!-- List of items -->#}
+    {#                <div class="col-md-8"></div>#}
+    {#                <!-- Summary -->#}
+    {#                <div class="col-md-4"></div>#}
+    {#            </div>#}
+    {#        {% else %}#}
+    {#            <div class="alert alert-info">#}
+    {#                Your cart is empty. Go to the <a href="{{ path('app.product.list') }}">product list</a>.#}
+    {#            </div>#}
+    {#        {% endif %}#}
+    {#    </div>#}
+
+
+    {#    <div class="col-md-8">#}
+    {#        {{ form_start(form) }}#}
+    {#        <div class="card">#}
+    {#            <div class="card-header bg-dark text-white d-flex">#}
+    {#                <h5>Items</h5>#}
+    {#                <div class="ml-auto">#}
+    {#                    {{ form_widget(form.update, {'attr': {'class': 'flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full'}}) }}#}
+    {#                    {{ form_widget(form.clear, {'attr': {'class': 'flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full'}}) }}#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <ul class="list-group list-group-flush">#}
+    {#                {% for item in form.items %}#}
+    {#                    <li class="list-group-item d-flex">#}
+    {#                        <div class="flex-fill mr-2">#}
+    {#                            <img src="https://via.placeholder.com/200x150" width="64" alt="Product image">#}
+    {#                        </div>#}
+    {#                        <div class="flex-fill mr-2">#}
+    {#                            <h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>#}
+    {#                            <small>{{ item.vars.data.product.description[:50] }}...</small>#}
+    {#                            <div class="form-inline mt-2">#}
+    {#                                <div class="form-group mb-0 mr-2">#}
+    {#                                    {{ form_widget(item.quantity, {#}
+    {#                                        'attr': {#}
+    {#                                            'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')#}
+    {#                                        }#}
+    {#                                    }) }}#}
+    {#                                    <div class="invalid-feedback">#}
+    {#                                        {{ form_errors(item.quantity) }}#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                                {{ form_widget(item.remove, {'attr': {'class': 'btn btn-dark btn-sm'}}) }}#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <div class="flex-fill mr-2 text-right">#}
+    {#                            <b>{{ item.vars.data.product.price }} €</b>#}
+    {#                        </div>#}
+    {#                    </li>#}
+    {#                {% endfor %}#}
+    {#            </ul>#}
+    {#        </div>#}
+    {#        {{ form_end(form, {'render_rest': false}) }}#}
+    {#    </div>#}
+
+    {#    <div class="col-md-4">#}
+    {#        <div class="card mt-4 mt-md-0">#}
+    {#            <h5 class="card-header bg-dark text-white">Summary</h5>#}
+    {#            <ul class="list-group list-group-flush">#}
+    {#                <li class="list-group-item d-flex justify-content-between">#}
+    {#                    <div><b>Total</b></div>#}
+    {#                    <span><b>{{ order.total }} €</b></span>#}
+    {#                </li>#}
+    {#            </ul>#}
+    {#            <div class="card-body">#}
+    {#                <a href="#" class="btn btn-warning w-100">Checkout</a>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+
+{% endblock %}
